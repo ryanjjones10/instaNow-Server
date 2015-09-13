@@ -35,7 +35,7 @@ var handleauth = function(req, res) {
     } else {
       console.log('token is ' + result.access_token);
       token = result.access_token;
-      setSubscription(37.773038, -122.422785, result.access_token);
+      setSubscription(37.773038, -122.422785);
     }
   });
 };
@@ -54,9 +54,10 @@ app.get('/authorize_user', authorize_user);
 app.get('/handleauth', handleauth);
 
 // geography subscription
-var setSubscription = function(lat, lng, userToken){
-  api.add_geography_subscription(lat, lng, 20, callbackURL, userToken, function(err, result, remaining, limit){
+var setSubscription = function(lat, lng){
+  api.add_geography_subscription(lat, lng, 20, callbackURL, token, function(err, result, remaining, limit){
     console.log('subscription result ', result);
+    console.log('this is the error ', err);
   });
 }
 
