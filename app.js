@@ -43,7 +43,9 @@ var handleauth = function(req, res) {
 app.route('/newImages')
   .get(function(req, res){
     console.log('trying to get')
-    req.query['hub.challenge']
+    res.send(
+      req.query['hub.challenge']
+    )
   })
   .post(function(req, res){
     console.log('this is the incoming data', res.body)
