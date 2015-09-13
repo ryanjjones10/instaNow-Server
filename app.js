@@ -59,9 +59,9 @@ app.get('/handleauth', handleauth);
 
 // geography subscription
 var setSubscription = function(lat, lng){
-  api.add_geography_subscription(lat, lng, 20, callbackURL, token, function(err, result, remaining, limit){
+  api.add_geography_subscription(lat, lng, 50, callbackURL, token, function(err, result, remaining, limit){
     console.log('subscription result ', result);
-    subscriptionID = result.id;
+    subscriptionID = result.object_id;
     console.log('this is the error from subscription ', err);
     getImages()
   });
