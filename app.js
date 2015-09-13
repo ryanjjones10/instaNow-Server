@@ -18,8 +18,8 @@ api.use({
   client_secret: keys.InstaClientSecret
 });
  
-var redirect_uri = 'https:insta-now.herokuapp.com/handleauth';
-var callbackURL = 'https:insta-now.herokuapp.com/newImages';
+var redirect_uri = 'https://insta-now.herokuapp.com/handleauth';
+var callbackURL = 'https://insta-now.herokuapp.com/newImages';
 var token;
 
 
