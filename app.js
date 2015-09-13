@@ -45,7 +45,7 @@ app.route('/newImages')
     req.query['hub.challenge']
   })
   .post(function(req, res){
-    console.log(res.body)
+    console.log('this is the incoming data', res.body)
   });
 
 // This is where you would initially send users to authorize 
