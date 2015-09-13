@@ -21,6 +21,7 @@ api.use({
 var redirect_uri = 'https://insta-now.herokuapp.com/handleauth';
 var callbackURL = 'https://insta-now.herokuapp.com/newImages';
 var token;
+var subscriptionID;
 
 
 var authorize_user = function(req, res) {
@@ -59,9 +60,19 @@ app.get('/handleauth', handleauth);
 // geography subscription
 var setSubscription = function(lat, lng){
   api.add_geography_subscription(lat, lng, 20, callbackURL, token, function(err, result, remaining, limit){
-    console.log('subscription result ', result);
-    console.log('this is the error ', err);
+    console.log('subscription result ', result.object_id);
+    subscriptionID = result.object_id;
+    console.log('this is the error from subscription ', err);
+    getImages()
   });
 }
+
+var getImages = function(){
+  api.geography_media_recent(subscriptionID, function(err, result, pagination, remaining, limit) {
+    console.log('these are the results from geography ', result);
+    console.log('this is the error from geography', err);
+  });
+}
+
 
 module.exports = app;
