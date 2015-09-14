@@ -1,12 +1,12 @@
-var http = require('http');
 var express = require('express');
 var path = require('path')
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var api = require('instagram-node').instagram();
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 var keys = require('./config');
-var io = require('socket.io')(app);
  
 //using this module https://www.npmjs.com/package/instagram-node
 
