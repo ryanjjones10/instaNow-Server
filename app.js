@@ -68,7 +68,7 @@ var setSubscription = function(lat, lng){
 }
 
 var getImages = function(lat, lng){
-  api.media_search({ lat: lat, lng: lng }, 20, function(err, result, remaining, limit) {
+  api.media_search(lat, lng, 20, function(err, result, remaining, limit) {
     console.log('these are the results from geography ', result);
     console.log('this is the error from geography', err);
   });
