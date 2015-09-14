@@ -59,7 +59,7 @@ app.get('/handleauth', handleauth);
 
 // geography subscription
 var setSubscription = function(lat, lng){
-  api.add_geography_subscription(lat, lng, 50, callbackURL, token, function(err, result, remaining, limit){
+  api.add_geography_subscription(lat, lng, 100, callbackURL, token, function(err, result, remaining, limit){
     console.log('subscription result ', result);
     subscriptionID = result.object_id;
     console.log('this is the error from subscription ', err);
