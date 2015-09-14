@@ -59,20 +59,19 @@ app.get('/handleauth', handleauth);
 
 // geography subscription
 var setSubscription = function(lat, lng){
-  api.add_geography_subscription(lat, lng, 100, callbackURL, token, function(err, result, remaining, limit){
+  api.add_geography_subscription(lat, lng, 20, callbackURL, token, function(err, result, remaining, limit){
     console.log('subscription result ', result);
     subscriptionID = result.object_id;
     console.log('this is the error from subscription ', err);
-    getImages()
+    getImages(lat, lng)
   });
 }
 
-var getImages = function(){
-  api.geography_media_recent(subscriptionID, function(err, result, pagination, remaining, limit) {
+var getImages = function(lat, lng){
+  api.location_search({ lat: lat, lng: lng }, 20, function(err, result, remaining, limit) {
     console.log('these are the results from geography ', result);
     console.log('this is the error from geography', err);
   });
 }
-
 
 module.exports = app;
