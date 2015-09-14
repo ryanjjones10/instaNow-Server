@@ -6,6 +6,7 @@ var morgan = require('morgan');
 var api = require('instagram-node').instagram();
 var app = express();
 var keys = require('./config');
+var io = require('socket.io')(app);
  
 //using this module https://www.npmjs.com/package/instagram-node
 
@@ -22,7 +23,8 @@ var redirect_uri = 'https://insta-now.herokuapp.com/handleauth';
 var callbackURL = 'https://insta-now.herokuapp.com/newImages';
 var token;
 var subscriptionID;
-
+var recentImages;
+var newImages = [];
 
 var authorize_user = function(req, res) {
   res.redirect(api.get_authorization_url(redirect_uri, { scope: ['likes'], state: 'a state' }));
@@ -50,6 +52,7 @@ app.route('/newImages')
   })
   .post(function(req, res){
     console.log('this is the incoming data', res.body)
+    newImages.push(res.body)
   });
 
 // This is where you would initially send users to authorize 
@@ -70,8 +73,14 @@ var setSubscription = function(lat, lng){
 var getImages = function(lat, lng){
   api.media_search(lat, lng, 20, function(err, result, remaining, limit) {
     console.log('these are the results from geography ', result);
+    recentImages = result;
     console.log('this is the error from geography', err);
   });
 }
+
+io.on('connection', function(socket){
+  socket.emit('recent', recentImages)
+  socket.emit('current images', newImages);
+});
 
 module.exports = app;
